@@ -4,13 +4,19 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() { 
+	delete sprite_; 
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	textureHandle_ = TextureManager::Load("mario.jpg");
+	sprite_ = Sprite::Create(textureHandle_, {100, 50});
+	viewProjection_.Initialize();
 }
 
 void GameScene::Update() {}
