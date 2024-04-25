@@ -8,6 +8,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include"ImGuiManager.h"
+#include"DebugCamera.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -56,6 +57,9 @@ private: // メンバ変数
 	uint32_t voiceHandle_ = 0;
 
 	float inputFloat3[3] = {0};
+
+	DebugCamera* debugCamera_ = nullptr;
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

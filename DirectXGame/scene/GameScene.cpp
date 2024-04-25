@@ -1,12 +1,14 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
-
+#include"PrimitiveDrawer.h"
+#include"AxisIndicator.h"
 GameScene::GameScene() {}
 
 GameScene::~GameScene() { 
 	delete sprite_; 
 	delete model_;
+	delete debugCamera_;
 }
 
 void GameScene::Initialize() {
@@ -24,6 +26,12 @@ void GameScene::Initialize() {
 	soundDataHandle_ = audio_->LoadWave("fanfare.wav");
 	audio_->PlayWave(soundDataHandle_);
 	voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
+	PrimitiveDrawer::GetInstance()->SetViewProjection(&viewProjection_);
+
+	debugCamera_ = new DebugCamera(1280, 720);
+
+	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
 }
 
 void GameScene::Update() { 
@@ -31,7 +39,7 @@ void GameScene::Update() {
 	pos.x += 2.0f;
 	pos.y += 1.0f;
 	sprite_->SetPosition(pos);
-	;
+	
 	if (input_->TriggerKey(DIK_SPACE)) {
 		audio_->StopWave(voiceHandle_);
 	}
@@ -42,6 +50,7 @@ void GameScene::Update() {
 	ImGui::SliderFloat3("SliderFloat3", inputFloat3,0.0f, 1.0f);
 	ImGui::ShowDemoWindow();
 	ImGui::End();
+	debugCamera_->Update();
 	#endif
 	
 }
@@ -71,13 +80,17 @@ void GameScene::Draw() {
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
 
-	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-
-	// 3Dオブジェクト描画後処理
+	//model_->Draw(worldTransform_, viewProjection_, textureHandle_);//中央にリソースを描画
+	model_->Draw(worldTransform_, debugCamera_->GetViewProjection(),textureHandle_);
+	PrimitiveDrawer::GetInstance()->DrawLine3d({0, 0, 0}, {0, 10, 0}, {1.0f, 0.0f, 0.0f, 1.0f});
+	
 	Model::PostDraw();
+	// 3Dオブジェクト描画後処理
+	
 #pragma endregion
 
 #pragma region 前景スプライト描画
