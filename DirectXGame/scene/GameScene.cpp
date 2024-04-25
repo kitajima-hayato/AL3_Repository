@@ -35,12 +35,14 @@ void GameScene::Update() {
 	if (input_->TriggerKey(DIK_SPACE)) {
 		audio_->StopWave(voiceHandle_);
 	}
+	#ifdef _DEBUG
 	ImGui::Begin("Debug1");
 	ImGui::Text("Kamata Taroimo %d %d %d", 2050, 12, 31);
 	ImGui::InputFloat3("InputFloat", inputFloat3);
 	ImGui::SliderFloat3("SliderFloat3", inputFloat3,0.0f, 1.0f);
+	ImGui::ShowDemoWindow();
 	ImGui::End();
-
+	#endif
 	
 }
 
