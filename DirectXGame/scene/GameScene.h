@@ -7,7 +7,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "Player.h"
+#include<vector>
 
 /// <summary>
 /// ゲームシーン
@@ -53,7 +53,7 @@ private: // メンバ変数
 
 	ViewProjection viewProjection_;
 
-	Player* player_;
+	std::vector<WorldTransform*> worldTransformBlocks_;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

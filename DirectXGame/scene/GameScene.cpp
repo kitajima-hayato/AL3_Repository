@@ -6,7 +6,11 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() { 
 	delete model_;
-	delete player_;
+
+	for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
+		delete worldTransformBlock;
+	}
+	worldTransformBlocks_.clear();
 }
 
 void GameScene::Initialize() {
@@ -20,14 +24,26 @@ void GameScene::Initialize() {
 
 	viewProjection_.Initialize();
 
-	player_ = new Player();
-	player_->Initialize(model_, textureHandle_, &viewProjection_);
+
+	const uint32_t kNumBlockHorizontal = 20;
+	const float kBlockWidth = 2.0f;
+	worldTransformBlocks_.resize(kNumBlockHorizontal);
+	for (uint32_t i = 0; i < kNumBlockHorizontal; ++i) {
+		worldTransformBlocks_[i] = new WorldTransform();
+		worldTransformBlocks_[i]->Initialize();
+		worldTransformBlocks_[i]->translation_.x = kBlockWidth * i;
+		worldTransformBlocks_[i]->translation_.y = 0.0f;
+
+	}
 }
 
 void GameScene::Update() {
-	player_->Update();
-}
 
+	for (WorldTransform* worldTransformBlock : worldTransformBlocks_) {
+		worldTransformBlock->UpdateMatrix();
+		worldTransformBlock->TransferMatrix();
+	}
+}
 void GameScene::Draw() {
 
 	// コマンドリストの取得
@@ -40,7 +56,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
-
+	
 	// スプライト描画後処理
 	Sprite::PostDraw();
 	// 深度バッファクリア
@@ -54,7 +70,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	player_->Draw();
+	for (WorldTransform* worldTranceformBlock : worldTransformBlocks_) {
+		model_->Draw(*worldTranceformBlock, viewProjection_);
+	}
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
