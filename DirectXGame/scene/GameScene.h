@@ -8,6 +8,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include"DebugCamera.h"
+#include"Skydome.h"
 #include<vector>
 
 /// <summary>
@@ -58,7 +59,9 @@ private: // メンバ変数
 
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
-
+	//天球skydome
+	Skydome* skydome_ = nullptr;
+	Model* modelSkydome_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
