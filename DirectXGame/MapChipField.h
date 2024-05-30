@@ -17,8 +17,8 @@ private:
 	static inline const float kBlockWidth = 1.0f;
 	static inline const float kBlockHeight = 1.0f;
 	// ブロックの個数
-	static inline const float kNumBlockVirtical = 10;
-	static inline const float kNumBlockHorizontal = 100;
+	static inline const uint32_t kNumBlockVirtical = 10;
+	static inline const uint32_t kNumBlockHorizontal = 10;
 
 	MapChipData mapChipData_;
 
@@ -30,4 +30,6 @@ public:
 
 	MapChipType GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex);
 	Vector3 GetMapChipPositionByIndex(uint32_t xIndex, uint32_t yIndex);
+	static inline const uint32_t GetNumBlockVirtial() { return kNumBlockVirtical; }
+	static inline const uint32_t GetNumBlockHorizontal() { return kNumBlockHorizontal; }
 };
