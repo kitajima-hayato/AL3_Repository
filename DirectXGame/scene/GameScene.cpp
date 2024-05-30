@@ -41,7 +41,7 @@ void GameScene::Initialize() {
 
 	// マップチップ
 	mapChipField_ = new MapChipField;
-	mapChipField_->LoadMapChipCsv("MapData/map.csv");
+	mapChipField_->LoadMapChipCsv("MapData/map1.csv");
 
 	GenerateBlocks();
 }
@@ -51,8 +51,8 @@ void GameScene::GenerateBlocks() {
 	uint32_t NumBlockHorizontal = mapChipField_->GetNumBlockHorizontal();
 
 	// ブロック一個分の横幅
-	const float kBlockWidth = 1.0f;
-	const float kBlockHeigh = 1.0f;
+	//const float kBlockWidth = 2.0f;
+	//const float kBlockHeigh = 2.0f;
 
 	// 要素数を変更する
 	// 列数を設定（縦方向のブロック数）
@@ -68,7 +68,7 @@ void GameScene::GenerateBlocks() {
 				worldTransform->Initialize();
 				worldTransformBlocks_[i][j] = worldTransform;
 				worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPositionByIndex(j, i);
-				if (j % 2 == 0 && i % 2 == 0) {
+				/* if (j % 2 == 0 && i % 2 == 0) {
 					worldTransformBlocks_[i][j]->translation_.x = kBlockWidth * i;
 					worldTransformBlocks_[i][j]->translation_.y = kBlockHeigh * j;
 				}
