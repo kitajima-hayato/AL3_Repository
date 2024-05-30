@@ -16,6 +16,7 @@ GameScene::~GameScene() {
 	delete debugCamera_;
 	delete skydome_;
 	delete modelSkydome_;
+	delete mapChipField_;
 }
 
 void GameScene::Initialize() {
@@ -66,6 +67,11 @@ void GameScene::Initialize() {
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 	
+	//マップチップ
+	mapChipField_ = new MapChipField;
+	mapChipField_->LoadMapChipCsv("MapData/blocks.csv");
+
+	GenerateBlocks();
 }
 
 void GameScene::Update() {
@@ -152,3 +158,5 @@ void GameScene::Draw() {
 
 #pragma endregion
 }
+
+void GameScene::GenerateBlocks() {}
