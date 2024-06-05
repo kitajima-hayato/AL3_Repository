@@ -17,6 +17,8 @@ GameScene::~GameScene() {
 	delete skydome_;
 	delete modelSkydome_;
 	delete mapChipField_;
+	delete player_;
+	delete modelPlayer_;
 }
 
 void GameScene::Initialize() {
@@ -45,9 +47,11 @@ void GameScene::Initialize() {
 
 	GenerateBlocks();
 
+	//Player関連
 	player_ = new Player;
+	modelPlayer_ = new Model;
 	modelPlayer_ = Model::Create();
-	//modelPlayer_->
+	modelPlayer_-
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 1);
 	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
 
@@ -142,7 +146,7 @@ void GameScene::Draw() {
 			model_->Draw(*worldTransformBlock, viewProjection_);
 		}
 	}
-
+	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion

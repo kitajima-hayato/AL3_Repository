@@ -19,5 +19,6 @@ private:
 	Model* model_;
 	uint32_t textureHandle_ = 0u;
 	Vector3 velocity_ = {};
+	static inline const float kAcceleration = 3;
 
 };
