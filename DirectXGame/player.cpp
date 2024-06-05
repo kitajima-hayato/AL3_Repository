@@ -4,18 +4,35 @@ Player::Player(){
 };
 Player::~Player(){
 
-};
+}
 
-void Player::Initialize(Model* model, uint32_t textureHandle, ViewProjection* viewProjection) { 
+void Player::Initialize(Model* model,  ViewProjection* viewProjection,const Vector3&position) { 
 	assert(model);
 	model_ = model;
-	textureHandle_ = textureHandle;
 
 	worldTransform_.Initialize();
+	worldTransform_.translation_ = position;
+
+	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
 	viewProjection_ = viewProjection;
 };
 void Player::Update() {
 	worldTransform_.TransferMatrix(); 
+	//移動入力
+	//左右移動操作
+	if (Input::GetInstance()->PushKey(DIK_RIGHT) || Input::GetInstance()->PushKey(DIK_LEFT)) {
+		//左右加速
+		Vector3 acceleration = {};
+
+
+	}
+
+	//移動
+	worldTransform_.translation_.x += velocity_.x;
+
+	//行列計算
+	worldTransform_.UpdateMatrix();
+
 };
 
 void Player::Draw(){ 

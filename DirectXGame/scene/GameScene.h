@@ -11,7 +11,7 @@
 #include"Skydome.h"
 #include"MapChipField.h"
 #include<vector>
-
+#include"Player.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -51,12 +51,10 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
-
 	uint32_t textureHandle_ = 0;
 	
 	Model* model_ = nullptr;
 	
-
 	ViewProjection viewProjection_;
 
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
@@ -69,6 +67,9 @@ private: // メンバ変数
 
 	//マップチップフィールド
 	MapChipField* mapChipField_;
+
+	Player* player_ = nullptr;
+	Model* modelPlayer_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

@@ -2,12 +2,14 @@
 #include<WorldTransform.h>
 #include<Model.h>
 #include<cassert>
+#include<numbers>
+#include <Input.h>
 
 class Player {
 public:
 	Player();
 	~Player();
-	void Initialize(Model* model, uint32_t textureHandle,ViewProjection* viewProjection);
+	void Initialize(Model* model,ViewProjection* viewProjection,const Vector3&position);
 	void Update();
 	void Draw();
 
@@ -16,6 +18,6 @@ private:
 	WorldTransform worldTransform_;
 	Model* model_;
 	uint32_t textureHandle_ = 0u;
-
+	Vector3 velocity_ = {};
 
 };

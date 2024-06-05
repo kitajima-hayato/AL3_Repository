@@ -44,16 +44,20 @@ void GameScene::Initialize() {
 	mapChipField_->LoadMapChipCsv("MapData/map1.csv");
 
 	GenerateBlocks();
+
+	player_ = new Player;
+	modelPlayer_ = Model::Create();
+	//modelPlayer_->
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 1);
+	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
+
 }
 
 void GameScene::GenerateBlocks() {
 	uint32_t NumBlockVirtial = mapChipField_->GetNumBlockVirtial();
 	uint32_t NumBlockHorizontal = mapChipField_->GetNumBlockHorizontal();
 
-	// ブロック一個分の横幅
-	//const float kBlockWidth = 2.0f;
-	//const float kBlockHeigh = 2.0f;
-
+	
 	// 要素数を変更する
 	// 列数を設定（縦方向のブロック数）
 	worldTransformBlocks_.resize(NumBlockVirtial);
@@ -68,14 +72,7 @@ void GameScene::GenerateBlocks() {
 				worldTransform->Initialize();
 				worldTransformBlocks_[i][j] = worldTransform;
 				worldTransformBlocks_[i][j]->translation_ = mapChipField_->GetMapChipPositionByIndex(j, i);
-				/* if (j % 2 == 0 && i % 2 == 0) {
-					worldTransformBlocks_[i][j]->translation_.x = kBlockWidth * i;
-					worldTransformBlocks_[i][j]->translation_.y = kBlockHeigh * j;
-				}
-				/*if (j % 2 != 0 && i % 2 != 0) {
-					worldTransformBlocks_[i][j]->translation_.x = kBlockWidth * i;
-					worldTransformBlocks_[i][j]->translation_.y = kBlockHeigh * j;
-				}*/
+				
 			}
 		}
 	}
