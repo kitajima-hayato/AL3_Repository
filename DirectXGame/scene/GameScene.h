@@ -12,6 +12,7 @@
 #include"MapChipField.h"
 #include<vector>
 #include"Player.h"
+#include <Player.h>
 /// <summary>
 /// ゲームシーン
 /// </summary>
