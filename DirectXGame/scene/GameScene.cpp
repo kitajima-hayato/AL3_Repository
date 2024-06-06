@@ -49,12 +49,10 @@ void GameScene::Initialize() {
 
 	//Player関連
 	player_ = new Player;
-	modelPlayer_ = new Model;
-	modelPlayer_ = Model::Create();
-	//modelPlayer_-
-	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(3, 3);
+	modelPlayer_ = Model::CreateFromOBJ("player", true);
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(3, 8);
 	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
-
+	
 }
 
 void GameScene::GenerateBlocks() {
@@ -109,6 +107,7 @@ void GameScene::Update() {
 	}
 #endif
 	skydome_->Update();
+	player_->Update();
 }
 void GameScene::Draw() {
 
@@ -146,6 +145,7 @@ void GameScene::Draw() {
 			model_->Draw(*worldTransformBlock, viewProjection_);
 		}
 	}
+	player_->Draw();
 	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
