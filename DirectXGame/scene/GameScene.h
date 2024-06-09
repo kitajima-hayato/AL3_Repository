@@ -71,6 +71,8 @@ private: // メンバ変数
 
 	Player* player_ = nullptr;
 	Model* modelPlayer_ = nullptr;
+
+	
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
