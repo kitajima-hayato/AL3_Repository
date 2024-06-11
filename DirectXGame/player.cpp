@@ -17,7 +17,7 @@ void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vect
 
 void Player::Update() {
 	worldTransform_.TransferMatrix();
-	//着地フラグ
+	// 着地フラグ
 	bool landing = false;
 	// 地面との当たり判定
 	// 下降中？
@@ -27,8 +27,7 @@ void Player::Update() {
 			landing = true;
 		}
 	}
-	
-	
+
 	// 移動入力
 	// 接地状態
 	if (onGround_) {
@@ -85,35 +84,32 @@ void Player::Update() {
 
 		// 空中
 	} else {
-			// 落下速度
-			velocity_.y += -kGravityAcceleration;
-			// 落下速度制限
-			velocity_.y = std::max(velocity_.y, -kLimitFallSpeed);
-			if (landing) {
-				// めり込み排斥
-				worldTransform_.translation_.y = 2.0f;
-				// 摩擦で横方向速度が減衰する
-				velocity_.x *= (1.0f - kAttenuation);
-				// 下方向速度をリセット
-				velocity_.y = 0.0f;
-				// 設置状態に移行
-				onGround_ = true;
-			}
+		// 落下速度
+		velocity_.y += -kGravityAcceleration;
+		// 落下速度制限
+		velocity_.y = std::max(velocity_.y, -kLimitFallSpeed);
+		if (landing) {
+			// めり込み排斥
+			worldTransform_.translation_.y = 2.0f;
+			// 摩擦で横方向速度が減衰する
+			velocity_.x *= (1.0f - kAttenuation);
+			// 下方向速度をリセット
+			velocity_.y = 0.0f;
+			// 設置状態に移行
+			onGround_ = true;
 		}
-		// 旋回制御
-		if (turnTimer_ > 0.0f) {
-			turnTimer_ -= 1.0f / 60.0f;
-			// 左右の自キャラ角度テーブル
-			float destinationRotationYTable[] = {std::numbers::pi_v<float> / 2.0f, std::numbers::pi_v<float> * 3.0f / 2.0f};
-			// 状態に応じた角度を取得する
-			float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
-			// 自キャラの角度を設定する
-			worldTransform_.rotation_.y = destinationRotationY * easeInOutSine(turnTimer_); ////角度補完せえい！！！
-		}
-		
-		
-		
-	
+	}
+	// 旋回制御
+	if (turnTimer_ > 0.0f) {
+		turnTimer_ -= 1.0f / 60.0f;
+		// 左右の自キャラ角度テーブル
+		float destinationRotationYTable[] = {std::numbers::pi_v<float> / 2.0f, std::numbers::pi_v<float> * 3.0f / 2.0f};
+		// 状態に応じた角度を取得する
+		float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
+		// 自キャラの角度を設定する
+		worldTransform_.rotation_.y = destinationRotationY * easeInOutSine(turnTimer_); ////角度補完せえい！！！
+	}
+
 	worldTransform_.translation_.x += velocity_.x;
 	worldTransform_.translation_.y += velocity_.y;
 	worldTransform_.translation_.z += velocity_.z;
