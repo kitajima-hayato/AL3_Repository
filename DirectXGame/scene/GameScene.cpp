@@ -1,6 +1,6 @@
+#include <cassert>
 #include "GameScene.h"
 #include "TextureManager.h"
-#include <cassert>
 
 GameScene::GameScene() {}
 

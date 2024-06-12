@@ -1,8 +1,9 @@
 #pragma once
+#include <cassert>
 #include"Model.h"
 #include"WorldTransform.h"
 #include"ViewProjection.h"
-#include <cassert>
+
 
 class Skydome {
 

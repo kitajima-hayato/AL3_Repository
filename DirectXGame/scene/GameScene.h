@@ -12,7 +12,7 @@
 #include"MapChipField.h"
 #include<vector>
 #include"Player.h"
-#include <Player.h>
+#include"CameraControleer.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -72,7 +72,7 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	Model* modelPlayer_ = nullptr;
 
-	
+	CameraControleer cameraControleer_;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
