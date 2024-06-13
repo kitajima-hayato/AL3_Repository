@@ -9,7 +9,7 @@ class CameraController {
 	//座標補間割合
 	static inline const float kInterpolationRate = 0.2f;
 	//速度掛け率
-	static inline const float kVelocityBias = 30.0f;
+	static inline const float kVelocityBias = 10.0f;
 	
 
 
@@ -38,8 +38,8 @@ private:
 	Rect movableArea_ = {0, 100, 0, 100};
 
 	//カメラの目標座標
-	Vector3 target_coordinate_;
+	Vector3 arrival_point;
 	
 	// 追従対象の各方向へのカメラ移動範囲
-	static inline const Rect Magine = {};
+	static inline const Rect margin = {-50.0f,50.0f,-50.0f,50.0f};
 };

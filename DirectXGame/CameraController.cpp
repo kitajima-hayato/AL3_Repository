@@ -3,7 +3,6 @@
 void CameraController::Initialize() {
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
-	
 }
 
 void CameraController::Update() {
@@ -11,12 +10,19 @@ void CameraController::Update() {
 	const WorldTransform& targetWorldTransform = target_->GetWorldTransform();
 	// 追従対象とオフセットと追従対象の速度からカメラの目標座標を計算
 	const Vector3& targetVelocity_ = target_->GetVelocity();
-	target_coordinate_.x = targetWorldTransform.translation_.x + targetOffset_.x + targetVelocity_.x * kVelocityBias;
-	target_coordinate_.y = targetWorldTransform.translation_.y + targetOffset_.y + targetVelocity_.y * kVelocityBias;
-	target_coordinate_.z = targetWorldTransform.translation_.z + targetOffset_.z + targetVelocity_.z * kVelocityBias;
+	const Vector3& targetPosition_ = target_->GetPlayerPosition();
+	arrival_point.x = targetWorldTransform.translation_.x + targetOffset_.x + targetVelocity_.x * kVelocityBias;
+	arrival_point.y = targetWorldTransform.translation_.y + targetOffset_.y + targetVelocity_.y * kVelocityBias;
+	arrival_point.z = targetWorldTransform.translation_.z + targetOffset_.z + targetVelocity_.z * kVelocityBias;
 
 	// 座標補間によりゆったり追従
-	viewProjection_.translation_ = Lerp(viewProjection_.translation_, target_coordinate_, kInterpolationRate);
+	viewProjection_.translation_ = Lerp(viewProjection_.translation_, arrival_point, kInterpolationRate);
+
+	// 追従対象が画面外に出ないように補正
+	viewProjection_.translation_.x = (std::max)(viewProjection_.translation_.x, targetPosition_.x + margin.left);
+	viewProjection_.translation_.x = (std::min)(viewProjection_.translation_.x, targetPosition_.x + margin.right);
+	viewProjection_.translation_.y = (std::max)(viewProjection_.translation_.y, targetPosition_.y + margin.bottom);
+	viewProjection_.translation_.y = (std::min)(viewProjection_.translation_.y, targetPosition_.y + margin.top);
 
 	// 移動範囲制限
 	viewProjection_.translation_.x = (std::max)(viewProjection_.translation_.x, movableArea_.left);
