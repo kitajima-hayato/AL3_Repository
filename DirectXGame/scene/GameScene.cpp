@@ -52,6 +52,12 @@ void GameScene::Initialize() {
 	modelPlayer_ = Model::CreateFromOBJ("player", true);
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(3, 8);
 	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
+
+	//カメラコントロールの初期化
+	cameraControleer_ = new CameraControleer;
+	cameraControleer_->Initialize();
+	cameraControleer_->SetTarget(player_);
+	cameraControleer_->Reset();
 	
 }
 
@@ -103,11 +109,15 @@ void GameScene::Update() {
 		viewProjection_.TransferMatrix();
 	} else {
 		// ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
+		viewProjection_.matView = cameraControleer_->GetViewProjection().matView;
+		viewProjection_.matProjection = cameraControleer_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
+		//viewProjection_.UpdateMatrix();
 	}
 #endif
 	skydome_->Update();
 	player_->Update();
+	cameraControleer_->Update();
 }
 void GameScene::Draw() {
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "ViewProjection.h"
+#include"MakeMatrix.h"
 
 class Player;
 class CameraControleer {
@@ -17,4 +18,5 @@ public:
 	void Reset();
 
 	void SetTarget(Player* target) { target_ = target; }
+	ViewProjection &GetViewProjection() { return viewProjection_; }
 };

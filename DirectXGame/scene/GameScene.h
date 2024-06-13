@@ -72,7 +72,7 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	Model* modelPlayer_ = nullptr;
 
-	CameraControleer cameraControleer_;
+	CameraControleer* cameraControleer_;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

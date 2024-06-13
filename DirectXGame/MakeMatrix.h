@@ -36,3 +36,7 @@ Matrix4x4 MakeRotateYMatrix(float radian);
 Matrix4x4 MakeRotateZMatrix(float radian);
 
 Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate);
+
+const Vector3 operator+(const Vector3& v1, const Vector3& v2);
+
+Vector3 Add(const Vector3& v1,const Vector3& v2);

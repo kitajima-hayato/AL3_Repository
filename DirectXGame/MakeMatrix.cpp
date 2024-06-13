@@ -155,6 +155,7 @@ Matrix4x4 MakeAffineMatrix(const Vector3&scale, const Vector3&rotate, const Vect
 	Matrix4x4 rotateXYZ = Multiply(Multiply(MakeRotateXMatrix(rotate.x), MakeRotateYMatrix(rotate.y)), MakeRotateZMatrix(rotate.z));
 	return Multiply(Multiply(MakeScaleMatrix(scale), rotateXYZ), MakeTranslateMatrix(translate));
 }
+
 Matrix4x4 Add(const Matrix4x4& mt1, const Matrix4x4& mt2) {
 
 	Matrix4x4 ans;
@@ -354,4 +355,17 @@ Matrix4x4 MekeIdentity4x4() {
 	ans.m[3][3] = 1;
 
 	return ans;
+}
+
+//const Vector3 operator+(const Vector3& v1, const Vector3& v2) { 
+//	Vector3 temp(v1);
+//	return temp + v2;
+//}
+
+Vector3 Add(Vector3& v1, Vector3& v2) { 
+	Vector3 result;
+	result.x = v1.x + v2.x;
+	result.y = v1.y + v2.y;
+	result.z = v1.z + v2.z;
+	return result;
 }
