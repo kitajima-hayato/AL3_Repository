@@ -40,3 +40,5 @@ Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Ve
 const Vector3 operator+(const Vector3& v1, const Vector3& v2);
 
 Vector3 Add(const Vector3& v1,const Vector3& v2);
+
+Vector3 Lerp(Vector3 start, Vector3 end, float t);

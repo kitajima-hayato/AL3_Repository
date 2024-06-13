@@ -6,6 +6,13 @@
 
 class Player;
 class CameraController {
+	//座標補間割合
+	static inline const float kInterpolationRate = 0.2f;
+	//速度掛け率
+	static inline const float kVelocityBias = 30.0f;
+	
+
+
 public:
 	struct Rect {
 		float left = 0.0f;   // 左端
@@ -20,7 +27,7 @@ public:
 	void SetTarget(Player* target) { target_ = target; }
 	void SetMovebleArea(Rect area) { movableArea_ = area; }
 	ViewProjection& GetViewProjection() { return viewProjection_; }
-	
+
 
 private:
 	ViewProjection viewProjection_;
@@ -31,6 +38,8 @@ private:
 	Rect movableArea_ = {0, 100, 0, 100};
 
 	//カメラの目標座標
-	Vector3 
-
+	Vector3 target_coordinate_;
+	
+	// 追従対象の各方向へのカメラ移動範囲
+	static inline const Rect Magine = {};
 };

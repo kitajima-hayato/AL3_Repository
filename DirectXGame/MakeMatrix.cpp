@@ -369,3 +369,13 @@ Vector3 Add(Vector3& v1, Vector3& v2) {
 	result.z = v1.z + v2.z;
 	return result;
 }
+
+Vector3 Lerp(Vector3 start, Vector3 end, float t) { 
+	Vector3 result;
+	result.x = (1.0f - t) * start.x + t * end.x; 
+	result.y = (1.0f - t) * start.y + t * end.y;
+	result.z = (1.0f - t) * start.z + t * end.z; 
+
+	return result;
+}
+
