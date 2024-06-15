@@ -13,7 +13,12 @@ enum class LRDirection {
 	kRight,
 	kLeft,
 };
+class MapChipField;
 class Player {
+	// 自機の当たり判定の調整項目
+	static inline const float kWidth = 0.8f;
+	static inline const float kHeight = 0.8f;
+
 public:
 	Player();
 	~Player();
@@ -21,11 +26,11 @@ public:
 	void Update();
 	void Draw();
 
-	
-
-	const WorldTransform& GetWorldTransform() const{ return worldTransform_; }
+	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 	const Vector3& GetVelocity() const { return velocity_; }
 	const Vector3& GetPlayerPosition() const { return worldTransform_.translation_; }
+
+	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 
 private:
 	WorldTransform worldTransform_;
@@ -61,5 +66,5 @@ private:
 	// ジャンプ初速
 	static inline const float kJumpAcceleration = 0.5f;
 
-	
+	MapChipField* mapChipField_ = nullptr;
 };
