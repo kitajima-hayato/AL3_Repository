@@ -35,8 +35,8 @@ class MapChipField;
 
 class Player {
 	// 自機の当たり判定の調整項目
-	static inline const float kWidth = 0.8f;
-	static inline const float kHeight = 0.8f;
+	static inline const float kWidth = 1.8f;
+	static inline const float kHeight = 1.8f;
 	static inline const float kBlank = 0.3f;
 
 public:
@@ -112,11 +112,11 @@ private:
 	// 設置状態フラグ
 	bool onGround_ = true;
 	// 重力加速度(下)
-	static inline const float kGravityAcceleration = 0.5f;
+	static inline const float kGravityAcceleration = 0.2f;
 	// 最大落下速度
-	static inline const float kLimitFallSpeed = 0.2f;
+	static inline const float kLimitFallSpeed = 0.4f;
 	// ジャンプ初速
-	static inline const float kJumpAcceleration = 0.5f;
+	static inline const float kJumpAcceleration = 0.8f;
 
 	MapChipField* mapChipField_ = nullptr;
 };

@@ -1,15 +1,9 @@
 #pragma once
-
-
-
-#include "Matrix4x4.h"
-#include "Vector3.h"
-#pragma once
 #include <assert.h>
-
 #include <cmath>
 #include <stdio.h>
-
+#include "Matrix4x4.h"
+#include "Vector3.h"
 Matrix4x4 Add(const Matrix4x4& mt1, const Matrix4x4& mt2);
 
 Matrix4x4 Subtract(const Matrix4x4& mt1, const Matrix4x4& mt2);
