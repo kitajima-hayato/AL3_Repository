@@ -362,13 +362,13 @@ Matrix4x4 MekeIdentity4x4() {
 //	return temp + v2;
 //}
 
-Vector3 Add(Vector3& v1, Vector3& v2) { 
-	Vector3 result;
-	result.x = v1.x + v2.x;
-	result.y = v1.y + v2.y;
-	result.z = v1.z + v2.z;
-	return result;
-}
+//Vector3 Add(Vector3& v1, Vector3& v2) { 
+//	Vector3 result;
+//	result.x = v1.x + v2.x;
+//	result.y = v1.y + v2.y;
+//	result.z = v1.z + v2.z;
+//	return result;
+//}
 
 Vector3 Lerp(Vector3 start, Vector3 end, float t) { 
 	Vector3 result;

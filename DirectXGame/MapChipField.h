@@ -9,8 +9,32 @@ enum class MapChipType {
 struct MapChipData {
 	std::vector<std::vector<MapChipType>> data;
 };
+struct IndexSet {
+	uint32_t xIndex;
+	uint32_t yIndex;
+};
+struct Rect {
+	float left;		//左端
+	float right;	//右端
+	float bottom;	//下端
+	float top;		//上端
+};
+
 
 class MapChipField {
+public:
+	MapChipField();
+	~MapChipField();
+	void ResetMapChipData();
+	void LoadMapChipCsv(const std::string& filePath);
+
+	IndexSet GetMapChipIndexSetByPosition(const Vector3& position);
+	Rect GetRectByIndex(uint32_t xIndex, uint32_t yIndex);
+
+	MapChipType GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex);
+	Vector3 GetMapChipPositionByIndex(uint32_t xIndex, uint32_t yIndex);
+	static inline const uint32_t GetNumBlockVirtial() { return kNumBlockVirtical; }
+	static inline const uint32_t GetNumBlockHorizontal() { return kNumBlockHorizontal; }
 
 private:
 	// 1ブロックのサイズ
@@ -21,15 +45,4 @@ private:
 	static inline const uint32_t kNumBlockHorizontal = 10;
 
 	MapChipData mapChipData_;
-
-public:
-	void ResetMapChipData();
-	void LoadMapChipCsv(const std::string& filePath);
-	MapChipField();
-	~MapChipField();
-
-	MapChipType GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex);
-	Vector3 GetMapChipPositionByIndex(uint32_t xIndex, uint32_t yIndex);
-	static inline const uint32_t GetNumBlockVirtial() { return kNumBlockVirtical; }
-	static inline const uint32_t GetNumBlockHorizontal() { return kNumBlockHorizontal; }
 };
