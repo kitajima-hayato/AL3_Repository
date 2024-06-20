@@ -40,6 +40,7 @@ class Player {
 
 	//着地時の速度減衰率
 	static inline const float kAttenuationLanding = 0.0f;
+	static inline const float kAttenuationWall = 0.0f;
 	static inline const float kDisplace = 0.0002f;
 	public:
 	Player();
@@ -59,8 +60,8 @@ class Player {
 	void collisionUp(CollisionMapInfo& info);	//マップ衝突判定上方向
 
 	void collosopnDown(CollisionMapInfo& info);	//マップ衝突判定下方向
-	//void collisionLeft(CollisionMapInfo& info);	//マップ衝突判定左方向
-	//void collisionRight(CollisionMapInfo& info);//マップ衝突判定右方向
+	void collisionLeft(CollisionMapInfo& info);	//マップ衝突判定左方向
+	void collisionRight(CollisionMapInfo& info);//マップ衝突判定右方向
 
 
 	// 判定結果を反映して移動させる
@@ -68,7 +69,7 @@ class Player {
 	// 天井に接触している場合の処理
 	void ceilingDecision( CollisionMapInfo& info);
 	// 壁に接触している場合の処理
-	void wallDecision();
+	void wallDecision(const CollisionMapInfo& info);
 	// 接地状態の切り替え
 	void groundingSwitch(const CollisionMapInfo& info);
 	// 旋回制御
@@ -94,8 +95,8 @@ private:
 	uint32_t textureHandle_ = 0u;
 	Vector3 velocity_ = {};
 
-	static inline const float kAcceleration = 0.05f;
-	static inline const float kAttenuation = 0.8f;
+	static inline const float kAcceleration = 0.5f;
+	static inline const float kAttenuation = 0.1f;
 	static inline const float kLimitRunSpeed = 0.3f;
 
 	LRDirection lrDirection_ = LRDirection::kRight;
