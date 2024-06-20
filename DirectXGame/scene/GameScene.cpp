@@ -5,7 +5,7 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	delete model_;
+	delete blockmodel_;
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
@@ -27,8 +27,8 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	textureHandle_ = TextureManager::Load("mario.jpg");
-	model_ = Model::Create();
+	
+	blockmodel_ = Model::CreateFromOBJ("block",true);
 
 	viewProjection_.Initialize();
 
@@ -43,14 +43,14 @@ void GameScene::Initialize() {
 
 	// マップチップ
 	mapChipField_ = new MapChipField;
-	mapChipField_->LoadMapChipCsv("MapData/map1.csv");
+	mapChipField_->LoadMapChipCsv("MapData/map.csv");
 
 	GenerateBlocks();
 
 	//Player関連
 	player_ = new Player;
 	modelPlayer_ = Model::CreateFromOBJ("player", true);
-	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(3, 8);
+	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(3, 18);
 	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
 	player_->SetMapChipField(mapChipField_);
 	//カメラコントロールの初期化
@@ -59,7 +59,7 @@ void GameScene::Initialize() {
 	cameraController_->SetTarget(player_);
 	cameraController_->Reset();
 
-	CameraController::Rect cameraArea = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
+	CameraController::Rect cameraArea = {11.0f, 100 - 12.0f, 6.0f, 6.0f};
 	cameraController_->SetMovebleArea(cameraArea);
 	
 }
@@ -155,7 +155,7 @@ void GameScene::Draw() {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 			if (!worldTransformBlock)
 				continue;
-			model_->Draw(*worldTransformBlock, viewProjection_);
+			blockmodel_->Draw(*worldTransformBlock, viewProjection_);
 		}
 	}
 	player_->Draw();

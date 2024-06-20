@@ -34,14 +34,14 @@ class MapChipField;
 
 class Player {
 	// 自機の当たり判定の調整項目
-	static inline const float kWidth = 1.8f;	//幅　X
-	static inline const float kHeight = 1.8f;	//高さY
+	static inline const float kWidth = 0.8f;	//幅　X
+	static inline const float kHeight = 0.8f;	//高さY
 	static inline const float kBlank = 0.3f;
 
 	//着地時の速度減衰率
 	static inline const float kAttenuationLanding = 0.0f;
-
-public:
+	static inline const float kDisplace = 0.0002f;
+	public:
 	Player();
 	~Player();
 	void Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position);
@@ -94,9 +94,9 @@ private:
 	uint32_t textureHandle_ = 0u;
 	Vector3 velocity_ = {};
 
-	static inline const float kAcceleration = 0.1f;
-	static inline const float kAttenuation = 0.05f;
-	static inline const float kLimitRunSpeed = 0.5f;
+	static inline const float kAcceleration = 0.05f;
+	static inline const float kAttenuation = 0.8f;
+	static inline const float kLimitRunSpeed = 0.3f;
 
 	LRDirection lrDirection_ = LRDirection::kRight;
 
@@ -105,7 +105,7 @@ private:
 	// 旋回タイマー
 	float turnTimer_ = 0.0f;
 	// 旋回時間<秒>
-	static inline const float kTimeTurn = 0.5f;
+	static inline const float kTimeTurn = 0.3f;
 
 	float easeInOutSine(float x) { return cosf(((float)M_PI * x) / 2); }
 	float EaseOutSine(float x) { return cosf((x * (float)M_PI) / 2); }
@@ -114,11 +114,11 @@ private:
 	// 設置状態フラグ
 	bool onGround_ = true;
 	// 重力加速度(下)
-	static inline const float kGravityAcceleration = 0.2f;
+	static inline const float kGravityAcceleration = 0.1f;
 	// 最大落下速度
-	static inline const float kLimitFallSpeed = 0.4f;
+	static inline const float kLimitFallSpeed = 0.5f;
 	// ジャンプ初速
-	static inline const float kJumpAcceleration = 0.8f;
+	static inline const float kJumpAcceleration = 1.0f;
 
 	MapChipField* mapChipField_ = nullptr;
 };
