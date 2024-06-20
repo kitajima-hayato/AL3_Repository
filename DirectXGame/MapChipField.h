@@ -37,7 +37,7 @@ public:
 	static inline const uint32_t GetNumBlockHorizontal() { return kNumBlockHorizontal; }
 
 private:
-	// 1ブロックのサイズ
+	// 1ブロックのサイズ//木のブロックの場合
 	static inline const float kBlockWidth = 2.0f;
 	static inline const float kBlockHeight = 2.0f;
 	// ブロックの個数

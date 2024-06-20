@@ -30,14 +30,16 @@ enum Corner {
 
 	kNumCorner,		//要素数
 };
-//const Vector3 operator+(const Vector3& v1, const Vector3& v2);
 class MapChipField;
 
 class Player {
 	// 自機の当たり判定の調整項目
-	static inline const float kWidth = 1.8f;
-	static inline const float kHeight = 1.8f;
+	static inline const float kWidth = 1.8f;	//幅　X
+	static inline const float kHeight = 1.8f;	//高さY
 	static inline const float kBlank = 0.3f;
+
+	//着地時の速度減衰率
+	static inline const float kAttenuationLanding = 0.0f;
 
 public:
 	Player();
@@ -56,19 +58,19 @@ public:
 
 	void collisionUp(CollisionMapInfo& info);	//マップ衝突判定上方向
 
+	void collosopnDown(CollisionMapInfo& info);	//マップ衝突判定下方向
 	//void collisionLeft(CollisionMapInfo& info);	//マップ衝突判定左方向
-	//void collosopnDown(CollisionMapInfo& info);	//マップ衝突判定下方向
 	//void collisionRight(CollisionMapInfo& info);//マップ衝突判定右方向
 
 
 	// 判定結果を反映して移動させる
 	void collisionDetection( CollisionMapInfo& info);
-	// 天上に接触している場合の処理
+	// 天井に接触している場合の処理
 	void ceilingDecision( CollisionMapInfo& info);
 	// 壁に接触している場合の処理
 	void wallDecision();
-	// 設置状態の切り替え
-	void groundingSwitch();
+	// 接地状態の切り替え
+	void groundingSwitch(const CollisionMapInfo& info);
 	// 旋回制御
 	void rotationControl();
 	// 行列計算
