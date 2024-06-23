@@ -5,11 +5,9 @@
 #include <algorithm>
 #include <cassert>
 #include <numbers>
-
 #include <corecrt_math.h>
 #include <corecrt_math_defines.h>
 #include <math.h>
-
 #include <DebugText.h>
 
 enum class LRDirection {
@@ -41,7 +39,7 @@ class Player {
 	//着地時の速度減衰率
 	static inline const float kAttenuationLanding = 0.0f;
 	static inline const float kAttenuationWall = 0.0f;
-	static inline const float kDisplace = 0.0002f;
+	static inline const float kDisplace = 0.002f;
 	public:
 	Player();
 	~Player();
@@ -95,7 +93,7 @@ private:
 	uint32_t textureHandle_ = 0u;
 	Vector3 velocity_ = {};
 
-	static inline const float kAcceleration = 0.5f;
+	static inline const float kAcceleration = 0.1f;
 	static inline const float kAttenuation = 0.1f;
 	static inline const float kLimitRunSpeed = 0.3f;
 
@@ -115,11 +113,11 @@ private:
 	// 設置状態フラグ
 	bool onGround_ = true;
 	// 重力加速度(下)
-	static inline const float kGravityAcceleration = 0.1f;
+	static inline const float kGravityAcceleration = 0.05f;
 	// 最大落下速度
-	static inline const float kLimitFallSpeed = 0.5f;
+	static inline const float kLimitFallSpeed = 0.3f;
 	// ジャンプ初速
-	static inline const float kJumpAcceleration = 1.0f;
+	static inline const float kJumpAcceleration = 0.5f;
 
 	MapChipField* mapChipField_ = nullptr;
 };
