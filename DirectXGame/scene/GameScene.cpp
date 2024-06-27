@@ -19,6 +19,7 @@ GameScene::~GameScene() {
 	delete mapChipField_;
 	delete player_;
 	delete modelPlayer_;
+	delete enemy_;
 }
 
 void GameScene::Initialize() {
@@ -62,6 +63,14 @@ void GameScene::Initialize() {
 	CameraController::Rect cameraArea = {11.0f, 100 - 12.0f, 6.0f, 6.0f};
 	cameraController_->SetMovebleArea(cameraArea);
 	
+	#pragma region エネミー関連
+	//エネミー関連
+	enemy_ = new Enemy;
+	enemyModel_ = Model::CreateFromOBJ("enemy", true);
+	Vector3 enemyposition = mapChipField_->GetMapChipPositionByIndex(20, 18);
+	enemy_->Initialize(enemyModel_, &viewProjection_, enemyposition);
+	enemy_->SetMapChipField(mapChipField_);
+	#pragma endregion
 }
 
 void GameScene::GenerateBlocks() {
@@ -120,6 +129,7 @@ void GameScene::Update() {
 #endif
 	skydome_->Update();
 	player_->Update();
+	enemy_->Update();
 	cameraController_->Update();
 }
 void GameScene::Draw() {
@@ -159,7 +169,7 @@ void GameScene::Draw() {
 		}
 	}
 	player_->Draw();
-	
+	enemy_->Draw();
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion

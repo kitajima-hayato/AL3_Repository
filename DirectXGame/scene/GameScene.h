@@ -13,6 +13,7 @@
 #include<vector>
 #include"Player.h"
 #include"CameraController.h"
+#include"Enemy.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -73,6 +74,9 @@ private: // メンバ変数
 	Model* modelPlayer_ = nullptr;
 
 	CameraController* cameraController_;
+
+	Enemy* enemy_ = nullptr;
+	Model* enemyModel_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

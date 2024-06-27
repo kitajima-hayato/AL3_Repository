@@ -1,5 +1,4 @@
 #pragma once
-#include "Vector3.h"
 #include <iostream>
 
 struct Vector3 final {
@@ -54,13 +53,13 @@ struct Vector3 final {
 		}
 		return *this;
 	}
+
+
 };
 
-//// Vector3同士の足し算を行う関数
-// Vector3 addVector3(const Vector3& v1, const Vector3& v2) {
-//	Vector3 result;
-//	result.x = v1.x + v2.x;
-//	result.y = v1.y + v2.y;
-//	result.z = v1.z + v2.z;
+
+//float Dot(const Vector3& v1, const Vector3& v2) {
+//	float result;
+//	result = (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
 //	return result;
-// }
+//}

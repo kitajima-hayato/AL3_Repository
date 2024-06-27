@@ -28,7 +28,9 @@ void Player::Update() {
 	calcMatrix();
 };
 
-void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_); }
+void Player::Draw() { 
+	model_->Draw(worldTransform_, *viewProjection_); 
+}
 
 // 全体の流れを整理するやつ
 //  移動入力
