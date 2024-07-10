@@ -11,9 +11,8 @@ void CameraController::Update() {
 	// 追従対象とオフセットと追従対象の速度からカメラの目標座標を計算
 	const Vector3& targetVelocity_ = target_->GetVelocity();
 	const Vector3& targetPosition_ = target_->GetPlayerPosition();
-	arrival_point.x = targetWorldTransform.translation_.x + targetOffset_.x + targetVelocity_.x * kVelocityBias;
-	arrival_point.y = targetWorldTransform.translation_.y + targetOffset_.y + targetVelocity_.y * kVelocityBias;
-	arrival_point.z = targetWorldTransform.translation_.z + targetOffset_.z + targetVelocity_.z * kVelocityBias;
+	arrival_point = targetWorldTransform.translation_ + targetOffset_ + targetVelocity_ * kVelocityBias;
+	
 
 	// 座標補間によりゆったり追従
 	viewProjection_.translation_ = Lerp(viewProjection_.translation_, arrival_point, kInterpolationRate);
