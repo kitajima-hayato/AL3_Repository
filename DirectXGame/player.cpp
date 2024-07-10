@@ -129,7 +129,7 @@ void Player::collision(CollisionMapInfo& info) {
 
 	// マップ衝突チェック
 	collisionUp(info);
-	collosopnDown(info);
+	collisionDown(info);
 	collisionLeft(info);
 	collisionRight(info);
 };
@@ -176,7 +176,7 @@ void Player::collisionUp(CollisionMapInfo& info) {
 	}
 };
 
-void Player::collosopnDown(CollisionMapInfo& info) {
+void Player::collisionDown(CollisionMapInfo& info) {
 	// 下降あり？
 	if (info.movingDistance_.y >= 0) {
 		return;
@@ -210,7 +210,7 @@ void Player::collosopnDown(CollisionMapInfo& info) {
 		info.movingDistance_.y = std::min(0.0f, rect.top - worldTransform_.translation_.y + (kHeight / 2.0f + kBlank));
 		// 地面に当たったことを記録する
 		info.onGround_ = true;
-	}
+	} 
 };
 
 void Player::collisionRight(CollisionMapInfo& info) {

@@ -57,7 +57,7 @@ class Player {
 
 	void collisionUp(CollisionMapInfo& info);	//マップ衝突判定上方向
 
-	void collosopnDown(CollisionMapInfo& info);	//マップ衝突判定下方向
+	void collisionDown(CollisionMapInfo& info); // マップ衝突判定下方向
 	void collisionLeft(CollisionMapInfo& info);	//マップ衝突判定左方向
 	void collisionRight(CollisionMapInfo& info);//マップ衝突判定右方向
 
