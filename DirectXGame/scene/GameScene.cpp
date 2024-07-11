@@ -104,6 +104,28 @@ void GameScene::GenerateBlocks() {
 		}
 	}
 }
+void GameScene::CheckAllCollisions() {
+
+	#pragma region 自キャラと敵キャラの当たり判定
+	//判定対象1と2の座標
+	AABB aabb1, aabb2;
+	//自キャラの座標
+	aabb1 = player_->GetAABB();
+	//自キャラと敵弾すべての当たり判定
+	for (Enemy* enemy : enemies_) {
+		//敵弾の座標
+		aabb2 = enemy->GetAABB();
+		//AABB同士の交差判定
+		if (IsCollision(aabb1, aabb2)) {
+			//自キャラの衝突時コールバックを呼び出す
+			player_->OnCollision(enemy);
+			//敵弾の衝突時コールバックを呼び出す
+			enemy->OnCollision(player_);
+		}
+	}
+	#pragma endregion
+
+}
 void GameScene::Update() {
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
@@ -140,6 +162,9 @@ void GameScene::Update() {
 		newEnemy->Update();
 	}
 	cameraController_->Update();
+	//全ての当たり判定を行う
+	//一番最後で行うワールド座標で判定を取るため、各オブジェクトのワールド行列計算が終わった後である必要があるため
+	CheckAllCollisions();
 }
 void GameScene::Draw() {
 

@@ -45,8 +45,9 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
-
 	void GenerateBlocks();
+	//全ての当たり判定を行う
+	void CheckAllCollisions();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -77,7 +78,6 @@ private: // メンバ変数
 
 	std::list<Enemy*> enemies_;
 	Model* enemyModel_ = nullptr;
-	std::vector<Enemy*> enemycount;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

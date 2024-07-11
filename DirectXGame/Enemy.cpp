@@ -42,6 +42,10 @@ AABB Enemy::GetAABB() {
 	Vector3 worldPos = GetWorldPosition();
 	AABB aabb;
 	aabb.min = {worldPos.x - kWidthEnemy / 2.0f, worldPos.y - kHeightEnemy / 2.0f, worldPos.z - kWidthEnemy / 2.0f};
-	aabb.max = {worldPos.x - kWidthEnemy / 2.0f, worldPos.y - kHeightEnemy / 2.0f, worldPos.z - kWidthEnemy / 2.0f};
+	aabb.max = {worldPos.x + kWidthEnemy / 2.0f, worldPos.y + kHeightEnemy / 2.0f, worldPos.z + kWidthEnemy / 2.0f};
 	return aabb;
+}
+
+void Enemy::OnCollision(const Player* player) { 
+	(void)player; 
 }

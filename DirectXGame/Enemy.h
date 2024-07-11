@@ -7,6 +7,7 @@
 #include"Vector3.h"
 #include <math.h>
 #include"AABB.h"
+class Player;
 class Enemy {
 	//歩行の速さ
 	static inline const float kWalkSpeed = 0.05f;
@@ -33,6 +34,9 @@ public:
 	Vector3 GetWorldPosition();
 	// AABBを取得
 	AABB GetAABB();
+	//衝突応答
+	void OnCollision(const Player* player);
+
 
 private:
 

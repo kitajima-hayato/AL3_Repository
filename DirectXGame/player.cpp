@@ -404,8 +404,13 @@ AABB Player::GetAABB() {
 	Vector3 worldPos = GetWorldPosition();
 	AABB aabb;
 	aabb.min = {worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f};
-	aabb.max = {worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f};
+	aabb.max = {worldPos.x + kWidth / 2.0f, worldPos.y + kHeight / 2.0f, worldPos.z + kWidth / 2.0f};
 	return aabb;
+}
+void Player::OnCollision(const Enemy* enemy){ 
+	(void)enemy;
+	//ジャンプ開始(仮処理)
+	velocity_ += Vector3(0, kJumpAcceleration,0);
 };
 
 // 指定した角の座標計算

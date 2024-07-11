@@ -10,6 +10,7 @@
 #include <math.h>
 #include <DebugText.h>
 #include"AABB.h"
+
 enum class LRDirection {
 	kRight,
 	kLeft,
@@ -29,7 +30,7 @@ enum Corner {
 	kNumCorner,		//要素数
 };
 class MapChipField;
-
+class Enemy;
 class Player {
 	// 自機の当たり判定の調整項目
 	static inline const float kWidth = 0.8f;	//幅　X
@@ -85,6 +86,9 @@ class Player {
 	Vector3 GetWorldPosition();
 	//AABBを取得
 	AABB GetAABB();
+
+	//衝突応答
+	void OnCollision(const Enemy* enemy);
 
 private:
 	
