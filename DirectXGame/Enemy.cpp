@@ -30,3 +30,18 @@ void Enemy::Update() {
 }
 
 void Enemy::Draw() { model_->Draw(worldTransform_, *viewProjection_); }
+
+Vector3 Enemy::GetWorldPosition() { // ワールド座標を入れる変数
+	Vector3 worldPos;
+	// ワールド行列の平行移動成分を取得（ワールド座標）
+	worldPos = worldTransform_.translation_;
+	return worldPos;
+}
+
+AABB Enemy::GetAABB() {
+	Vector3 worldPos = GetWorldPosition();
+	AABB aabb;
+	aabb.min = {worldPos.x - kWidthEnemy / 2.0f, worldPos.y - kHeightEnemy / 2.0f, worldPos.z - kWidthEnemy / 2.0f};
+	aabb.max = {worldPos.x - kWidthEnemy / 2.0f, worldPos.y - kHeightEnemy / 2.0f, worldPos.z - kWidthEnemy / 2.0f};
+	return aabb;
+}

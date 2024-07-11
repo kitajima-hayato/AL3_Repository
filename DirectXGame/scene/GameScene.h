@@ -75,8 +75,9 @@ private: // メンバ変数
 
 	CameraController* cameraController_;
 
-	Enemy* enemy_ = nullptr;
+	std::list<Enemy*> enemies_;
 	Model* enemyModel_ = nullptr;
+	std::vector<Enemy*> enemycount;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

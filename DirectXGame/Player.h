@@ -9,7 +9,7 @@
 #include <corecrt_math_defines.h>
 #include <math.h>
 #include <DebugText.h>
-
+#include"AABB.h"
 enum class LRDirection {
 	kRight,
 	kLeft,
@@ -81,8 +81,10 @@ class Player {
 
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 
-
-	
+	// ワールド座標を取得、当たり判定を取るために必要
+	Vector3 GetWorldPosition();
+	//AABBを取得
+	AABB GetAABB();
 
 private:
 	
@@ -120,4 +122,7 @@ private:
 	static inline const float kJumpAcceleration = 0.5f;
 
 	MapChipField* mapChipField_ = nullptr;
+
+	
+
 };

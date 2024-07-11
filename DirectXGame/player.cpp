@@ -392,6 +392,20 @@ void Player::calcMatrix() {
 	// 行列計算
 	worldTransform_.TransferMatrix();
 	worldTransform_.UpdateMatrix();
+}
+Vector3 Player::GetWorldPosition() { 
+	// ワールド座標を入れる変数
+	Vector3 worldPos;
+	// ワールド行列の平行移動成分を取得（ワールド座標）
+	worldPos = worldTransform_.translation_;
+	return worldPos;
+}
+AABB Player::GetAABB() {
+	Vector3 worldPos = GetWorldPosition();
+	AABB aabb;
+	aabb.min = {worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f};
+	aabb.max = {worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f};
+	return aabb;
 };
 
 // 指定した角の座標計算
