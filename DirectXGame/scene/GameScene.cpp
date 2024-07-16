@@ -75,9 +75,11 @@ void GameScene::Initialize() {
 		newEnemy->Initialize(enemyModel_,&viewProjection_,enemyPosition);
 		enemies_.push_back(newEnemy);
 	}
-
-	
 	#pragma endregion
+	//仮の生成処理
+	deathParticles_ = new DeathParticles;
+	deathModel_ = Model::CreateFromOBJ("deathParticle");
+	deathParticles_->Initialize(deathModel_, &viewProjection_, playerPosition);
 }
 
 void GameScene::GenerateBlocks() {
