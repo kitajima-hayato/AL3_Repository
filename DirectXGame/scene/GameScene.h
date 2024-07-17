@@ -80,7 +80,7 @@ private: // メンバ変数
 	std::list<Enemy*> enemies_;
 	Model* enemyModel_ = nullptr;
 
-	DeathParticles* deathParticles_ = nullptr;
+	std::list<DeathParticles*> deathParticles_ ;
 	Model* deathModel_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用

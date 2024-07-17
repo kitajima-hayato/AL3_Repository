@@ -3,6 +3,9 @@
 #include<array>
 #include"Model.h"
 #include"ViewProjection.h"
+#include"WorldTransform.h"
+#include"MakeMatrix.h"
+#include <numbers>
 
 class DeathParticles {
 	//パーティクルの個数
@@ -21,9 +24,16 @@ private:
 
 	std::array<WorldTransform, kNumParticles> worldTransforms_;
 
+	//存続時間(消滅までの時間)<秒>
+	static inline const float kDuration = 1.5f;
+	//移動の速さ
+	static inline const float kSpeed = 0.05f;
+	//分割した１個分の角度
+	static inline const float kAngleUnit = 2 * std::numbers::pi_v<float> / kNumParticles;
 
-
-
-
+	//終了フラグ
+	bool isFinished_ = false;
+	//経過時間カウント
+	float counter_ = 0.0f;
 };
 

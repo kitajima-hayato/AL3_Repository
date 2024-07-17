@@ -22,6 +22,9 @@ GameScene::~GameScene() {
 	for (Enemy*newEnemy:enemies_) {
 		delete newEnemy;
 	}
+	for (DeathParticles* deathParticles : deathParticles_) {
+		delete deathParticles;
+	}
 }
 
 void GameScene::Initialize() {
@@ -76,10 +79,15 @@ void GameScene::Initialize() {
 		enemies_.push_back(newEnemy);
 	}
 	#pragma endregion
+
 	//仮の生成処理
-	deathParticles_ = new DeathParticles;
-	deathModel_ = Model::CreateFromOBJ("deathParticle");
-	deathParticles_->Initialize(deathModel_, &viewProjection_, playerPosition);
+	deathModel_ = Model::CreateFromOBJ("deathParticle", true);
+	for (int32_t i = 0; i < 8; ++i) {
+		DeathParticles* deathParticles = new DeathParticles();
+		deathParticles->Initialize(deathModel_, &viewProjection_, playerPosition);
+		deathParticles_.push_back(deathParticles);
+	}
+	
 }
 
 void GameScene::GenerateBlocks() {
@@ -158,10 +166,15 @@ void GameScene::Update() {
 		//viewProjection_.UpdateMatrix();
 	}
 #endif
+
 	skydome_->Update();
 	player_->Update();
 	for (Enemy* newEnemy : enemies_) {
 		newEnemy->Update();
+	}
+	//if ()
+	for (DeathParticles* deathParticles : deathParticles_) {
+		deathParticles->Update();
 	}
 	cameraController_->Update();
 	//全ての当たり判定を行う
@@ -207,6 +220,10 @@ void GameScene::Draw() {
 	player_->Draw();
 	for (Enemy* newEnemy : enemies_) {
 		newEnemy->Draw();
+	}
+	//if ()
+	for (DeathParticles* deathParticles : deathParticles_) {
+		deathParticles->Draw();
 	}
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
