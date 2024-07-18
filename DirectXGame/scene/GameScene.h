@@ -18,6 +18,13 @@
 /// <summary>
 /// ゲームシーン
 /// </summary>
+
+//ゲームのフェーズ(型)
+enum class Phase {
+	kPlay,	//ゲームプレイ
+	kDeath,	//デス演出
+};
+
 class GameScene {
 
 public: // メンバ関数
@@ -49,6 +56,8 @@ public: // メンバ関数
 	void GenerateBlocks();
 	//全ての当たり判定を行う
 	void CheckAllCollisions();
+
+	void ChangePhase();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -82,6 +91,10 @@ private: // メンバ変数
 
 	std::list<DeathParticles*> deathParticles_ ;
 	Model* deathModel_ = nullptr;
+
+	//ゲームの現在フェーズ(変数)
+	Phase phase_;
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

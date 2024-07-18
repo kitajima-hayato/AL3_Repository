@@ -410,7 +410,10 @@ AABB Player::GetAABB() {
 void Player::OnCollision(const Enemy* enemy){ 
 	(void)enemy;
 	//ジャンプ開始(仮処理)
-	velocity_ += Vector3(0, kJumpAcceleration,0);
+	//velocity_ += Vector3(0, kJumpAcceleration,0);
+
+	//本処理デスフラグを立てる
+	isDead_ = true;
 };
 
 // 指定した角の座標計算

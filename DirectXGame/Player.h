@@ -90,6 +90,9 @@ class Player {
 	//衝突応答
 	void OnCollision(const Enemy* enemy);
 
+	//デスフラグのゲッター
+	bool IsDead() const { return isDead_; }
+
 private:
 	
 	WorldTransform worldTransform_;
@@ -127,6 +130,7 @@ private:
 
 	MapChipField* mapChipField_ = nullptr;
 
-	
+	//デスフラグ
+	bool isDead_ = false;
 
 };
