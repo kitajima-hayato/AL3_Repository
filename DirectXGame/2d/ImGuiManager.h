@@ -1,4 +1,5 @@
-﻿#pragma once
+#pragma once
+#include<Player.h>
 
 #ifdef _DEBUG
 #include <d3d12.h>
@@ -49,4 +50,8 @@ private:
 	~ImGuiManager() = default;
 	ImGuiManager(const ImGuiManager&) = delete;
 	const ImGuiManager& operator=(const ImGuiManager&) = delete;
+	
+	
+	Player* player_ = nullptr;
+
 };
