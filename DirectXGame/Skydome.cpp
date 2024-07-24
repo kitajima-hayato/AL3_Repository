@@ -9,7 +9,7 @@ Skydome::~Skydome() {
 void Skydome::Initialize(Model *model,ViewProjection* viewprojection) { 
 	
 	model_ = model;
-	
+	assert(model);
 	worldTransform_.Initialize();
 	viewProjection_ = viewprojection;
 

@@ -209,7 +209,11 @@ void GameScene::Update() {
 		for (DeathParticles* deathParticles : deathParticles_) {
 			
 			deathParticles->Update();
+			if (deathParticles && deathParticles->IsFinished()) {
+				finished_ = true;
+			}
 		}
+		
 		// カメラの更新
 		debugCamera_->Update();
 		// ブロックの更新
