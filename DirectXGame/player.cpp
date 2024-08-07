@@ -183,7 +183,7 @@ void Player::collisionDown(CollisionMapInfo& info) {
 	}
 	std::array<Vector3, kNumCorner> positionNew;
 	for (uint32_t i = 0; i < positionNew.size(); ++i) {
-		positionNew[i] = CornerPosition(worldTransform_.translation_ + info.movingDistance_, static_cast<Corner>(i));
+		positionNew[i] = CornerPosition(worldTransform_.translation_ + Vector3(0,info.movingDistance_.y,0) ,static_cast<Corner>(i));
 	}
 	MapChipType mapChipType;
 	// 真下の当たり判定
