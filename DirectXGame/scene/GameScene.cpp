@@ -239,7 +239,7 @@ void GameScene::Update() {
 		}
 		break;
 	case Phase::kClear:
-		if (input_->PushKey(input_->TriggerKey(DIK_SPACE))) {
+		if (input_->TriggerKey(DIK_A)) {
 			finished_ = true;
 		}
 

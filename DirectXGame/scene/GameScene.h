@@ -109,6 +109,7 @@ private: // メンバ変数
 	uint32_t textureHandleCLEAR_ = 0;
 	uint32_t textureHandlePlay_ = 0;
 	
+	bool finish = false;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

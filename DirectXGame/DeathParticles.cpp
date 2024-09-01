@@ -60,3 +60,5 @@ void DeathParticles::Draw() {
 		deathModel_->Draw(worldTransform, *viewProjection_, &objectColor_);
 	}
 }
+
+
