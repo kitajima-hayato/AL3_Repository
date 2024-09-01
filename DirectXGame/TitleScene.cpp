@@ -1,4 +1,5 @@
 #include "TitleScene.h"
+#include <TextureManager.h>
 
 TitleScene::TitleScene() { 
 	
@@ -14,7 +15,7 @@ TitleScene::~TitleScene() {
 void TitleScene::Initialize() { 
 	dxCommon_ = DirectXCommon::GetInstance();
 	model_ = Model::CreateFromOBJ("Title", true);
-	 
+	
 
 
 	//assert(model_);
@@ -25,8 +26,9 @@ void TitleScene::Initialize() {
 	skyModel_->Model::CreateFromOBJ("skydome", true);
 	skydome_->Initialize(skyModel_,&viewProjection_);
 
-	
-	
+	spriteTitle_ = new Sprite();
+	textureHandleTitle_ = TextureManager::Load("Title.png");
+	spriteTitle_ = Sprite::Create(textureHandleTitle_, {0, 0});
 }
 
 void TitleScene::Update() {
@@ -43,7 +45,14 @@ void TitleScene::Update() {
 void TitleScene::Draw() {
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
+	Sprite::PreDraw(commandList);
+	spriteTitle_->Draw();
+	// スプライト描画後処理
+	Sprite::PostDraw();
+	// 深度バッファクリア
+	dxCommon_->ClearDepthBuffer();
 	Model::PreDraw(commandList);
+	
 	model_->Draw(worldTransform_, viewProjection_);
 	Model::PostDraw();
 }

@@ -17,6 +17,9 @@ public:
 	void Draw();
 	bool IsFinished() const { return isFinished_; }
 
+	bool Finish(bool finish);
+
+
 private:
 	Model* deathModel_ = nullptr;
 	ViewProjection* viewProjection_ = nullptr;
