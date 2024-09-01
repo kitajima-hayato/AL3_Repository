@@ -14,7 +14,7 @@ TitleScene::~TitleScene() {
 void TitleScene::Initialize() { 
 	dxCommon_ = DirectXCommon::GetInstance();
 	model_ = Model::CreateFromOBJ("Title", true);
-	
+	 
 
 
 	//assert(model_);
