@@ -1,9 +1,14 @@
 #include "TitleScene.h"
 
-TitleScene::TitleScene() {}
+TitleScene::TitleScene() { 
+	
+
+}
 
 TitleScene::~TitleScene() { 
 	delete model_; 
+	delete skydome_;
+	delete spriteTitle_;
 }
 
 void TitleScene::Initialize() { 
@@ -16,12 +21,16 @@ void TitleScene::Initialize() {
 	viewProjection_.Initialize();
 	worldTransform_.Initialize();
 	
+	skydome_ = new Skydome();
+	skyModel_->Model::CreateFromOBJ("skydome", true);
+	skydome_->Initialize(skyModel_,&viewProjection_);
 
-
+	
+	
 }
 
 void TitleScene::Update() {
-	
+	//skydome_->Update();
 	//スペースを押したらタイトルからゲームシーンへ
 	if (Input::GetInstance()->PushKey(DIK_SPACE)) {
 		finished_ = true;
@@ -31,7 +40,7 @@ void TitleScene::Update() {
 	worldTransform_.UpdateMatrix();
 }
 
-void TitleScene::Draw() { 
+void TitleScene::Draw() {
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 	Model::PreDraw(commandList);

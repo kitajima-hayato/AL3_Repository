@@ -24,7 +24,7 @@ void Enemy::Update() {
 	// 回転アニメーション
 	float param = std::sin((2.0f * std::numbers::pi_v<float>)*WalkTimer_ / kWalkMotionTime);
 	float radian = kWalkMotionAngleStart + kWalkMotionAngleEnd * (param + 1.0f) / 2.0f;
-	worldTransform_.rotation_.x = fLerp(kWalkMotionAngleStart, kWalkMotionAngleEnd, radian);
+	worldTransform_.rotation_.y = fLerp(kWalkMotionAngleStart, kWalkMotionAngleEnd, radian);
 	worldTransform_.TransferMatrix();
 	worldTransform_.UpdateMatrix();
 }

@@ -77,6 +77,7 @@ class Player {
 	void calcMatrix();
 
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
+	const Vector3& GetTranslation_() const { return worldTransform_.translation_; }
 	const Vector3& GetVelocity() const { return velocity_; }
 	const Vector3& GetPlayerPosition() const { return worldTransform_.translation_; }
 

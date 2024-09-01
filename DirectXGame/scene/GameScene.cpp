@@ -19,6 +19,9 @@ GameScene::~GameScene() {
 	delete mapChipField_;
 	delete player_;
 	delete modelPlayer_;
+	delete spritePlay_;
+	delete spriteClear_;
+	
 	for (Enemy* newEnemy : enemies_) {
 		delete newEnemy;
 	}
@@ -69,7 +72,7 @@ void GameScene::Initialize() {
 
 #pragma region エネミー関連
 	// エネミー関連
-	enemyModel_ = Model::CreateFromOBJ("enemy", true);
+	enemyModel_ = Model::CreateFromOBJ("Enemy", true);
 
 	for (int32_t i = 0; i < 3; ++i) {
 		Enemy* newEnemy = new Enemy();
@@ -88,8 +91,14 @@ void GameScene::Initialize() {
 	}
 	// ゲームプレイフェーズから開始
 	phase_ = Phase::kPlay;
-}
 
+	textureHandleCLEAR_ = TextureManager::Load("CLEAR.png");
+	textureHandlePlay_ = TextureManager::Load("Play.png");
+	
+	spritePlay_= Sprite::Create(textureHandlePlay_, {0, 0});
+	spriteClear_ = Sprite::Create(textureHandleCLEAR_, {0, 0});
+	
+}	
 void GameScene::GenerateBlocks() {
 	uint32_t NumBlockVirtial = mapChipField_->GetNumBlockVirtial();
 	uint32_t NumBlockHorizontal = mapChipField_->GetNumBlockHorizontal();
@@ -159,29 +168,33 @@ void GameScene::Update() {
 				deathParticles->Initialize(deathModel_, &viewProjection_, deathParticlsePosition);
 			}
 		}
+		Vector3 PPos = player_->GetTranslation_();
+		if (PPos.x >= 90.0f) {
+			phase_ = Phase::kClear;
+		}
 		// 敵の更新(複数)
 		for (Enemy* newEnemy : enemies_) {
 			newEnemy->Update();
 		}
 		// カメラコントローラの更新
-#ifdef _DEBUG
-		if (input_->TriggerKey(DIK_SPACE)) {
-			isDebugCameraActive_ = true;
-		}
-		if (isDebugCameraActive_) {
-			debugCamera_->Update();
-			viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-			viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-			// ビュープロジェクション行列の転送
-			viewProjection_.TransferMatrix();
-		} else {
-			// ビュープロジェクション行列の更新と転送
-			viewProjection_.matView = cameraController_->GetViewProjection().matView;
-			viewProjection_.matProjection = cameraController_->GetViewProjection().matProjection;
-			viewProjection_.TransferMatrix();
-			// viewProjection_.UpdateMatrix();
-		}
-#endif
+		// #ifdef _DEBUG
+		// if (input_->TriggerKey(DIK_SPACE)) {
+		//	isDebugCameraActive_ = true;
+		// }
+		// if (isDebugCameraActive_) {
+		//	debugCamera_->Update();
+		//	viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		//	viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		//	// ビュープロジェクション行列の転送
+		//	viewProjection_.TransferMatrix();
+		// } else {
+		//  ビュープロジェクション行列の更新と転送
+		viewProjection_.matView = cameraController_->GetViewProjection().matView;
+		viewProjection_.matProjection = cameraController_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
+		// viewProjection_.UpdateMatrix();
+		//}
+		// #endif
 		cameraController_->Update();
 		// カメラの更新
 		debugCamera_->Update();
@@ -207,16 +220,14 @@ void GameScene::Update() {
 		}
 		// デスパーティクルの更新
 		for (DeathParticles* deathParticles : deathParticles_) {
-			
 			deathParticles->Update();
 			if (deathParticles && deathParticles->IsFinished()) {
 				finished_ = true;
 			}
 		}
-		
+
 		// カメラの更新
 		debugCamera_->Update();
-		// ブロックの更新
 		//  ブロックの更新
 		for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 			for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
@@ -226,6 +237,12 @@ void GameScene::Update() {
 				worldTransformBlock->TransferMatrix();
 			}
 		}
+		break;
+	case Phase::kClear:
+		if (input_->PushKey(input_->TriggerKey(DIK_SPACE))) {
+			finished_ = true;
+		}
+
 		break;
 	}
 	// 全ての当たり判定を行う
@@ -245,7 +262,17 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
-
+	switch (phase_) {
+	case Phase::kPlay:
+		spritePlay_->Draw();
+		break;
+	case Phase::kDeath:
+		spritePlay_->Draw();
+		break;
+	case Phase::kClear:
+		spriteClear_->Draw();
+		break;
+	}
 	// スプライト描画後処理
 	Sprite::PostDraw();
 	// 深度バッファクリア
@@ -260,13 +287,11 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	
-
 	switch (phase_) {
 	case Phase::kPlay:
 		// 天球の描画
-		skydome_->Draw();
-		//自キャラの描画
+		//skydome_->Draw();
+		// 自キャラの描画
 		player_->Draw();
 		// 敵の描画
 		for (Enemy* newEnemy : enemies_) {
@@ -284,7 +309,7 @@ void GameScene::Draw() {
 
 	case Phase::kDeath:
 		// 天球の描画
-		skydome_->Draw();
+		//skydome_->Draw();
 		// 敵の描画
 		for (Enemy* newEnemy : enemies_) {
 			newEnemy->Draw();
@@ -301,6 +326,8 @@ void GameScene::Draw() {
 				blockmodel_->Draw(*worldTransformBlock, viewProjection_);
 			}
 		}
+		break;
+	case Phase::kClear:
 		break;
 	}
 	// 3Dオブジェクト描画後処理

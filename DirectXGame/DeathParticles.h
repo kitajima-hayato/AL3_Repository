@@ -18,8 +18,6 @@ public:
 	bool IsFinished() const { return isFinished_; }
 
 private:
-
-
 	Model* deathModel_ = nullptr;
 	ViewProjection* viewProjection_ = nullptr;
 
