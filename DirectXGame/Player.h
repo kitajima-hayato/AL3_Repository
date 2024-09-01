@@ -40,7 +40,7 @@ class Player {
 	//着地時の速度減衰率
 	static inline const float kAttenuationLanding = 0.0f;
 	static inline const float kAttenuationWall = 0.0f;
-	static inline const float kDisplace = 0.002f;
+	static inline const float kDisplace = 0.1f;
 	public:
 	Player();
 	~Player();
@@ -77,6 +77,7 @@ class Player {
 	void calcMatrix();
 
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
+	const Vector3& GetTranslation_() const { return worldTransform_.translation_; }
 	const Vector3& GetVelocity() const { return velocity_; }
 	const Vector3& GetPlayerPosition() const { return worldTransform_.translation_; }
 

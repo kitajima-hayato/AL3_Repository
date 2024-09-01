@@ -23,6 +23,7 @@
 enum class Phase {
 	kPlay,	//ゲームプレイ
 	kDeath,	//デス演出
+	kClear,	//クリア
 };
 
 class GameScene {
@@ -100,6 +101,13 @@ private: // メンバ変数
 
 	//終了フラグ
 	bool finished_ = false;
+	
+	//スプライト
+	Sprite* spritePlay_ = nullptr;
+	Sprite* spriteClear_ = nullptr;
+	
+	uint32_t textureHandleCLEAR_ = 0;
+	uint32_t textureHandlePlay_ = 0;
 	
 	/// <summary>
 	/// ゲームシーン用

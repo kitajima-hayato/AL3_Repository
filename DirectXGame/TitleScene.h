@@ -5,6 +5,8 @@
 #include"Model.h"
 #include"ViewProjection.h"
 #include"WorldTransform.h"
+#include "Skydome.h"
+#include "Sprite.h"
 class TitleScene {
 
 
@@ -22,7 +24,11 @@ private:
 	Model* model_;
 	ViewProjection viewProjection_;
 	WorldTransform worldTransform_;
-	
+	Skydome* skydome_ = nullptr;
+	Model* skyModel_ = nullptr;
+
+	Sprite* spriteTitle_ = nullptr;
+	uint32_t textureHandleTitle_ = 0;
 	//終了フラグ
 	bool finished_ = false;
 	
